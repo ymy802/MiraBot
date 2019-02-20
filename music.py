@@ -22,8 +22,9 @@ class VoiceEntry:
         self.player = player
 
     def __str__(self):
+        print(self.requester.nick, self.requester.name)
         requester = self.requester.nick if self.requester.nick else self.requester.name
-        return "Now Playing: {} (신청자: {})".format(self.player.title, self.requester)
+        return "Now Playing: {} (신청자: {})".format(self.player.title, requester)
 
 
 class VoiceState:
@@ -87,9 +88,8 @@ async def get_playlist(server):
 
     if server.id in playlist:
         if random_order:
-            return random.shuffle(playlist[server.id])
-        else:
-            return playlist[server.id]
+            random.shuffle(playlist[server.id])
+        return playlist[server.id]
 
     else:
         entries = list()
@@ -103,6 +103,5 @@ async def get_playlist(server):
                 entries.append(PlaylistEntry(requester, url))
         playlist[server.id] = entries
         if random_order:
-            return random.shuffle(entries)
-        else:
-            return entries
+            random.shuffle(entries)
+        return entries
