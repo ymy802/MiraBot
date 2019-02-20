@@ -56,9 +56,12 @@ class VoiceState:
 
             self.play_next.clear()
             song = await self.playlist.get()
-            player = await self.vclient.create_ytdl_player(
-                         song.url, after=self.toggle_next,
-                         before_options="-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5")
+            try:
+                player = await self.vclient.create_ytdl_player(
+                             song.url, after=self.toggle_next,
+                             before_options="-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5")
+            except:
+                continue
             player.volumn = DEFAULT_VOLUME
             self.current = VoiceEntry(song.requester, player)
             await self.bot.edit_channel(self.text_channel, topic=str(self.current))
