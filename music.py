@@ -7,7 +7,7 @@ import discord
 playlist = dict()
 voice_states = dict()
 DEFAULT_VOLUME = 0.5
-random_order = False
+random_order = True
 
 
 class PlaylistEntry:
