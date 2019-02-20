@@ -22,7 +22,6 @@ class VoiceEntry:
         self.player = player
 
     def __str__(self):
-        print(self.requester.nick, self.requester.name)
         requester = self.requester.nick if self.requester.nick else self.requester.name
         return "Now Playing: {} (신청자: {})".format(self.player.title, requester)
 
