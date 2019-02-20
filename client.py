@@ -1,8 +1,12 @@
 """How to run this code.
 1) Install python libraries.
    |  pip install discord pynacl youtube_dl
-2) Check discord.key file. It should contains BOT_TOKEN value.
-3) Run.
+2) Install ffmpeg and add it to %PATH%.
+   |  sudo rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+   |  sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+   |  sudo yum install ffmpeg
+3) Check discord.key file. It should contains BOT_TOKEN value.
+4) Run.
    |  python client.py
 """
 
@@ -35,7 +39,6 @@ async def on_message(msg):
         if vchannel:
             vclient = client.voice_client_in(msg.channel.server)
             if vclient:
-                state = music.get_voice_state(client, msg.channel.server, vclient, msg.channel)
                 await vclient.move_to(vchannel)
             else:
                 vclient = await client.join_voice_channel(vchannel)
@@ -65,7 +68,6 @@ async def on_message(msg):
                     )
                 )
                 state.play()
-
     await client.process_commands(msg)
 
 
